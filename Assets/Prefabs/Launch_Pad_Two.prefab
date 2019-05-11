@@ -56,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4954271576850410}
   m_Layer: 0
-  m_Name: Launch_Pad (2)
+  m_Name: Launch_Pad_Two
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
