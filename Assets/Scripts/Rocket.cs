@@ -8,6 +8,9 @@ public class Rocket : MonoBehaviour {
     Rigidbody rigidBody;
     AudioSource audioSource;
 
+    [SerializeField] float rcsThrust = 200f;
+    [SerializeField] float mainThrust = 1200f;
+
 	// Use this for initialization
 	void Start () {
         rigidBody = GetComponent<Rigidbody>();
@@ -21,8 +24,11 @@ public class Rocket : MonoBehaviour {
 	}
 
     private void Thrust() {
+
+        float thrustThisFrame = mainThrust * Time.deltaTime;
+
         if (Input.GetKey(KeyCode.Space)) {
-            rigidBody.AddRelativeForce(Vector3.up);
+            rigidBody.AddRelativeForce(Vector3.up * thrustThisFrame);
             if (!audioSource.isPlaying) {
                 audioSource.Play();
             }
@@ -37,12 +43,18 @@ public class Rocket : MonoBehaviour {
 
         rigidBody.freezeRotation = true; // <= TAKE MANUAL CONTROL OF ROTATION
 
+        float rotationThisFrame = rcsThrust * Time.deltaTime;
+
         if (Input.GetKey(KeyCode.A)) {
+            
             print("Rotating Left");
-            transform.Rotate(Vector3.forward);
+            transform.Rotate(Vector3.forward * rotationThisFrame);
+
         } else if (Input.GetKey(KeyCode.D)) {
+            
             print("Rotating Right");
-            transform.Rotate(-Vector3.forward);
+            transform.Rotate(-Vector3.forward * rotationThisFrame);
+
         } if (Input.GetKey(KeyCode.Escape)) {
             UnityEditor.EditorApplication.isPlaying = false;  // <= COMMENT OUT BEFORE RUNNING BUILD
             Application.Quit();
